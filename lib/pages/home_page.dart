@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_codigo_youapp/iu/general/colors.dart';
 import 'package:flutter_codigo_youapp/iu/widgets/item_filter_widget.dart';
 import 'package:flutter_codigo_youapp/iu/widgets/item_video_widget.dart';
+import 'package:flutter_codigo_youapp/services/api_service.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  final ApiService _apiService = ApiService();
 
   @override
   Widget build(BuildContext context) {

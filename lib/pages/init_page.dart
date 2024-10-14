@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_codigo_youapp/iu/general/colors.dart';
+import 'package:flutter_codigo_youapp/pages/home_page.dart';
 
 class InitPage extends StatefulWidget {
   const InitPage({super.key});
@@ -11,7 +12,7 @@ class InitPage extends StatefulWidget {
 class _InitPageState extends State<InitPage> {
   int _currentIndex = 0;
   List<Widget> _pages = [
-    Center(child: Text('Principal')),
+    HomePage(),
     Center(child: Text('Shorts')),
     Center(child: Text('Agregar')),
     Center(child: Text('Suscripciones')),
@@ -26,7 +27,7 @@ class _InitPageState extends State<InitPage> {
         title: Container(
           alignment: Alignment.topLeft,
           child: Image.asset('assets/images/logo-1.png'),
-          height: 26,
+          height: 20,
         ),
         actions: [
           IconButton(

@@ -39,21 +39,21 @@ class VideoModel {
 
 class Id {
   String kind;
-  String? channelId;
+  String? videoId;
 
   Id({
     required this.kind,
-    this.channelId,
+    this.videoId,
   });
 
   factory Id.fromJson(Map<String, dynamic> json) => Id(
         kind: json["kind"],
-        channelId: json["channelId"],
+        videoId: json["videoId"] ?? '',
       );
 
   Map<String, dynamic> toJson() => {
         "kind": kind,
-        "channelId": channelId,
+        "videoId": videoId,
       };
 }
 
@@ -127,16 +127,24 @@ class Thumbnails {
 
 class Default {
   String url;
+  int width;
+  int height;
 
   Default({
     required this.url,
+    required this.width,
+    required this.height,
   });
 
   factory Default.fromJson(Map<String, dynamic> json) => Default(
         url: json["url"],
+        width: json["width"],
+        height: json["height"],
       );
 
   Map<String, dynamic> toJson() => {
         "url": url,
+        "width": width,
+        "height": height,
       };
 }

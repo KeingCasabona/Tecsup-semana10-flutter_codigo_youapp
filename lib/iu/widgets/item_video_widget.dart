@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_codigo_youapp/models/channel_model.dart';
+import 'package:flutter_codigo_youapp/models/video_model.dart';
+import 'package:flutter_codigo_youapp/services/api_service.dart';
 
 class ItemVideoWidget extends StatelessWidget {
-  const ItemVideoWidget({super.key});
+  final VideoModel videoModel;
+  ItemVideoWidget({required this.videoModel});
+
+  Future<ChannelModel> _fetchChannel() async {
+    return await ApiService().getChannel(videoModel.snippet.channelId);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +24,7 @@ class ItemVideoWidget extends StatelessWidget {
                   width: double.infinity,
                   height: height * 0.3,
                   fit: BoxFit.cover,
-                  'https://images.pexels.com/photos/257904/pexels-photo-257904.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+                  videoModel.snippet.thumbnails.high.url),
               Positioned(
                 bottom: 0,
                 right: 0,
@@ -35,10 +43,20 @@ class ItemVideoWidget extends StatelessWidget {
           ListTile(
             //contentPadding: EdgeInsets.zero,
             contentPadding: EdgeInsets.only(left: 14),
-            leading: CircleAvatar(
-              backgroundColor: Colors.white12,
-              backgroundImage: NetworkImage(
-                  'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'),
+            leading: FutureBuilder<ChannelModel>(
+              future: _fetchChannel(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        snapshot.data!.snippet.thumbnails.medium.url),
+                  );
+                } else {
+                  return CircleAvatar(
+                    backgroundColor: Colors.grey,
+                  );
+                }
+              },
             ),
             trailing: Column(
               children: [
@@ -51,13 +69,13 @@ class ItemVideoWidget extends StatelessWidget {
             title: Text(
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              'Lorem jfkdjfksdjfjdsl hkdakldj lksjk jj j fdsf sdf fsdf sdf sdf fdsf. fsd fds fds fds fdsf dsf sdf sd',
+              videoModel.snippet.title,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             subtitle: Text(
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              'Alanxelmundo de prueba - 6.7 M de vistas - hace 2 anos',
+              '${videoModel.snippet.channelTitle} - 6.7 M de vistas - hace 2 anos',
               style: TextStyle(color: Colors.white54, fontSize: 13),
             ),
           )

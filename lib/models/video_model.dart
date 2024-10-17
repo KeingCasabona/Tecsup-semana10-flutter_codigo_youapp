@@ -39,11 +39,11 @@ class VideoModel {
 
 class Id {
   String kind;
-  String channelId;
+  String? channelId;
 
   Id({
     required this.kind,
-    required this.channelId,
+    this.channelId,
   });
 
   factory Id.fromJson(Map<String, dynamic> json) => Id(

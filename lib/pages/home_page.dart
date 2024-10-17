@@ -2,10 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_codigo_youapp/iu/general/colors.dart';
 import 'package:flutter_codigo_youapp/iu/widgets/item_filter_widget.dart';
 import 'package:flutter_codigo_youapp/iu/widgets/item_video_widget.dart';
+import 'package:flutter_codigo_youapp/models/video_model.dart';
 import 'package:flutter_codigo_youapp/services/api_service.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final ApiService _apiService = ApiService();
+
+  List<VideoModel> videos = [];
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  getData() {
+    _apiService.getVideos().then((value) {
+      videos = value;
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +79,15 @@ class HomePage extends StatelessWidget {
               ),
             ),
             SizedBox(height: 8),
-            ItemVideoWidget(),
-            ItemVideoWidget(),
-            ItemVideoWidget(),
+            ListView.builder(
+                shrinkWrap: true,
+                physics: ScrollPhysics(),
+                itemCount: videos.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return ItemVideoWidget(
+                    videoModel: videos[index],
+                  );
+                })
           ],
         ),
       ),

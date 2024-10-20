@@ -54,7 +54,7 @@ class ItemVideoWidget extends StatelessWidget {
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
-                )
+                ),
               ],
             ),
             ListTile(

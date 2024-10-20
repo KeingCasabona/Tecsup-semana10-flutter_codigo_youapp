@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_codigo_youapp/iu/general/colors.dart';
 import 'package:flutter_codigo_youapp/iu/widgets/item_video_detail_widget.dart';
+import 'package:flutter_codigo_youapp/pages/channel_page.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoDetailPage extends StatefulWidget {
@@ -107,6 +108,12 @@ class _VideoDetailPageState extends State<VideoDetailPage> {
                       color: Colors.white24,
                     ),
                     ListTile(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ChannelPage()));
+                      },
                       leading: CircleAvatar(
                         backgroundColor: Colors.grey,
                         backgroundImage: NetworkImage(
